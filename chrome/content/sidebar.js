@@ -69,15 +69,17 @@ function addFriend(aFriendId, aName, aPhoto) {
 }
 
 function parseFriends(aText) {
-  var re = /<span>(.+?)<\/span>\s+<div\sid="[0-9]+"\sclass="memo_pop">/;
-  var re2 = /<a\shref="show_friend.pl\?id=[0-9]+"\sstyle="background:\surl((.+?));/;
+  var re = /<span>(.+?)<\/span>\s+<div\sid="[0-9]+"\sclass="memo_pop">/g;
+  var re2 = /<a\shref="show_friend.pl\?id=[0-9]+"\sstyle="background:\surl\((.+?)\);/g;
+  var nameRe = /<span>(.+?)<\/span>\s+<div\sid="[0-9]+"\sclass="memo_pop">/;
+  var photoRe = /<a\shref="show_friend.pl\?id=([0-9]+)"\sstyle="background:\surl\((.+?)\);/;
   names = aText.match(re);
   photos = aText.match(re2);
   while (names.length > 0) {
     var nameline = names.shift();
     var photoline = photos.shift();
-    var name = re.exec(nameline)[1];
-    var _photo = re2.exec(photoline);
+    var name = nameRe.exec(nameline)[1];
+    var _photo = photoRe.exec(photoline);
     var friendid = _photo[1];
     var photo = _photo[2];
     addFriend(friendid, name, photo);
