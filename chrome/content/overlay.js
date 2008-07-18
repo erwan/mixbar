@@ -1,4 +1,3 @@
-window.addEventListener("load", function() { mixiBar.init(); }, false);
 
 var mixiBar = {
   init: function() {
@@ -109,7 +108,7 @@ var mixiBar = {
         mixiBar.show(aTarget, photo, name, sex);
       }
     }
-    xhr.send (null);   
+    xhr.send (null);
   },
   
   maybeShow: function(event) {
@@ -150,11 +149,4 @@ var mixiBar = {
 
 }
 
-
-
-
-
-
-
-
-
+window.addEventListener("load", function() { mixiBar.init(); }, false);

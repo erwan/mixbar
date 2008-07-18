@@ -22,17 +22,17 @@ function openMixiUrl(aEvent, aUrl) {
 
 function loadTop() {
   loadMe();
-  loadDiary();
-  loadCommunities();
+  // loadDiary();
+  // loadCommunities();
 }
 
 function parseMe(aText) {
   dump (aText);
-  var re =/<td\scolspan="3"\salign="center">\s+<img\salt="\*"\ssrc="(.+?)"\swidth="1"\sheight="5"><br>\s+(.+?)\((.+?)\)<br>/;
+  var re =/<div\sclass="contents01">\s+<img\ssrc="(.+?)"\salt="(.+?)"\s\/>/;
 
   var nameline = aText.match(re);
   var name = nameline[2];
-  $('welcome').setAttribute('value', 'ようこそ、'+name);
+  $("welcome").setAttribute("value", "ようこそ、" + name);
 }
 
 function loadMe() {
@@ -69,17 +69,15 @@ function addFriend(aFriendId, aName, aPhoto) {
 }
 
 function parseFriends(aText) {
-  var re = /<td\svalign=top>(.+?)<br\s\/>/g;
-  var re2 = /<a\shref=show_friend\.pl\?id=(\d+?)><img\sSRC=(.+?)\sborder=0><\/a>/g;
-  var nameRe = /<td\svalign=top>(.+?)<br\s\/>/;
-  var photoRe = /<a\shref=show_friend\.pl\?id=(\d+?)><img\sSRC=(.+?)\sborder=0><\/a>/;
+  var re = /<span>(.+?)<\/span>\s+<div\sid="[0-9]+"\sclass="memo_pop">/;
+  var re2 = /<a\shref="show_friend.pl\?id=[0-9]+"\sstyle="background:\surl((.+?));/;
   names = aText.match(re);
   photos = aText.match(re2);
   while (names.length > 0) {
     var nameline = names.shift();
     var photoline = photos.shift();
-    var name = nameRe.exec(nameline)[1];
-    var _photo = photoRe.exec(photoline);
+    var name = re.exec(nameline)[1];
+    var _photo = re2.exec(photoline);
     var friendid = _photo[1];
     var photo = _photo[2];
     addFriend(friendid, name, photo);
