@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#" xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>mixbar@loisant.org</em:id>
+    <em:creator>Erwan Loisant</em:creator>
+    <em:name>Mixbar</em:name>
+    <em:description>Sidebar for Mixi</em:description>
+    <em:homepageURL>http://loisant.org/flock/mixbar</em:homepageURL>
+    <em:version>0.1</em:version>
+    <em:targetApplication>
+      <Description>
+        <!-- Flock -->
+        <em:id>{a463f10c-3994-11da-9945-000d60ca027b}</em:id>
+        <em:minVersion>1.0</em:minVersion>
+        <em:maxVersion>2.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+    <em:targetApplication>
+      <Description>
+        <!-- Firefox -->
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>2.0</em:minVersion>
+        <em:maxVersion>3.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+  </Description>
+</RDF>

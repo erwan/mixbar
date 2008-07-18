@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="chrome://global/skin/"?>
+<?xml-stylesheet type="text/css" href="chrome://mixbar/content/sidebar.css"?>
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+  onload="loadMixbar();"
+  >
+  <script type="application/x-javascript" src="chrome://browser/content/utilityOverlay.js"/>
+  <script src="chrome://mixbar/content/sidebar.js" type="application/x-javascript"/>
+  <tabbox flex="1">
+    <tabs>
+      <tab label="トップ" onclick="loadTop();"/>
+      <tab label="友達" onclick="loadFriends();"/>
+    </tabs>
+    <tabpanels flex="1">
+      <tabpanel>
+        <vbox flex="1">
+          <description id="welcome" value="ようこそ"/>
+          <vbox id="events"/>
+          <listbox id="diaryList" flex="1"/>
+          <splitter/>
+          <listbox id="communityList" flex="10"/>
+        </vbox>
+      </tabpanel>
+      <tabpanel>
+        <richlistbox id="friendList" flex="1"/>
+      </tabpanel>
+    </tabpanels>
+  </tabbox> 
+</window>

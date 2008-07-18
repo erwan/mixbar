@@ -1,0 +1,27 @@
+<bindings id="mixbar_bindings"
+      xmlns="http://www.mozilla.org/xbl"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+      xmlns:xbl="http://www.mozilla.org/xbl">
+
+  <binding id="mixifriend">
+    <content>
+      <xul:hbox flex="1" align="center" pack="start">
+        <xul:hbox width="80">
+          <xul:spacer flex="1"/>
+          <xul:image class="avatar" xbl:inherits="src=avatar"/>
+          <xul:spacer flex="1"/>
+        </xul:hbox>
+        <xul:vbox flex="0" pack="center">
+          <xul:description xbl:inherits="value=name" crop="end"/>
+          <xul:hbox>
+            <xul:toolbarbutton label="トップ" xbl:inherits="onclick=ontoppageclick"/> 
+            <xul:toolbarbutton label="メッセージ" xbl:inherits="onclick=onmessageclick"/> 
+            <xul:toolbarbutton label="日記" xbl:inherits="onclick=ondiaryclick"/> 
+          </xul:hbox>
+        </xul:vbox>
+      </xul:hbox>
+    </content>
+  </binding>
+
+</bindings>

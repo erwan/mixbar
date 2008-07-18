@@ -1,0 +1,31 @@
+mixifriend {
+  -moz-binding: url("chrome://mixbar/content/mixiFriend.xml#mixifriend");
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f2ddb7;
+  background-color: #fdf9f2;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+mixifriend toolbarbutton {
+  -moz-appearance: none !important;
+  font-size: xx-small;
+  color: #000;
+  background-color: #FEDFB9;
+  border:1px solid;
+  border-color:#dfb479;
+  margin-right: 5px;
+  margin-left: 3px;
+}
+
+mixifriend toolbarbutton:hover {
+  background-color: #DFB479;
+}
+
+mixifriend image.avatar {
+  border-style: solid;
+  border-width: 3px;
+  border-color: #FEC977;
+  
+}

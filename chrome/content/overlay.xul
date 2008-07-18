@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+  <script src="chrome://mixbar/content/overlay.js" type="application/x-javascript"/>
+
+  <!-- サイドバー -->
+  <broadcasterset id="mainBroadcasterSet">
+    <broadcaster sidebarurl="chrome://Mixbar/content/sidebar.xul" autoCheck="false" type="checkbox" id="MixbarSidebarBroadcaster" oncommand="toggleSidebar('MixbarSidebarBroadcaster')" sidebartitle="Mixbar" label="Mixbar sidebar" tooltiptext="Mixbar sidebar" group="sidebar"/>
+  </broadcasterset>
+  <menupopup id="viewSidebarMenu">
+    <menuitem observes="MixbarSidebarBroadcaster" key="mixiSidebarKey"/>
+  </menupopup>
+  <keyset id="mainKeyset">
+    <key id="mixiSidebarKey"
+        observes="MixbarSidebarBroadcaster"
+        modifiers="control"
+        key="m" />
+  </keyset>
+
+  <!-- 日記に書く -->
+  <popup id="contentAreaContextMenu">
+    <menuitem id="nikkiContext" label="日記に書く" oncommand="mixiBar.blogThis();"/>
+  </popup>
+
+  <!-- mouseoverでプロファイルを見せる -->
+  <tabbrowser id="content">
+  	<hbox id="mixi-magic" hidden="true"                           
+          style="-moz-appearance: none; position: fixed; top: 200; left: 200; padding: 7px; margin: 0; border-style: solid; border-width: 2px; border-color: #f2ddb7; background-color: #fdf9f2;">
+      <html:img id="mixi-magic-shashin" style="max-width: 75px; max-height: 75px" src=""/>
+      <vbox flex="1">
+        <grid id="informations">
+          <columns>
+            <column/>
+            <column flex="1"/>
+          </columns>
+          <rows>
+            <row>
+              <label style="font-weigth: bold" value="名前:" />
+              <label id="mixi-magic-name" value="" />
+            </row>
+            <row>
+              <label style="font-weigth: bold" value="性別:" />
+              <label id="mixi-magic-sex" value="" />
+            </row>
+          </rows>
+        </grid>
+        <spacer flex="1"/>
+      </vbox>
+  	</hbox>
+  </tabbrowser>
+
+</overlay>

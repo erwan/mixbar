@@ -1,0 +1,2 @@
+content   mixbar  chrome/content/
+overlay	chrome://browser/content/browser.xul   chrome://mixbar/content/overlay.xul
