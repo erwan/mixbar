@@ -22,7 +22,7 @@ function openMixiUrl(aEvent, aUrl) {
 
 function loadTop() {
   loadMe();
-  // loadDiary();
+  loadDiary();
   // loadCommunities();
 }
 
@@ -117,18 +117,14 @@ function addDiary(aUrl, aTitle, aName) {
 }
 
 function parseDiary(aText) {
-  var re = /<a\sclass="new_link"\shref=(.+?)>(.+?)<\/a>\s\((.+?)\)/g;
-  var re2 = /<a\sclass="new_link"\shref=(.+?)>(.+?)<\/a>\s\((.+?)\)/;
+  var re = /<a\shref="view_diary.pl\?(.+?)">\s*(.+?)\s*<\/a>\s*\((.+?)\)/g;
+  var re2 = /<a\shref="view_diary.pl\?(.+?)">\s*(.+?)\s*<\/a>\s*\((.+?)\)/;
   var diaries = aText.match(re);
   while (diaries.length > 0) {
     var diaryline = diaries.shift();
     // dump(diaryline+"\n");
     var diary = re2.exec(diaryline);
-    var url;
-    if (diary[1].match("http"))
-      url = unescape(diary[1].replace("view_diary.pl?url=", ""));
-    else
-      url = "http://mixi.jp/"+diary[1];
+    var url = "http://mixi.jp/view_diary.pl?" + diary[1];
     var title = diary[2];
     var name = diary[3];
     addDiary(url, title, name);
