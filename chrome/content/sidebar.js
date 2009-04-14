@@ -27,7 +27,6 @@ function loadTop() {
 }
 
 function parseMe(aText) {
-  dump (aText);
   var re =/<div\sclass="contents01">\s+<img\ssrc="(.+?)"\salt="(.+?)"\s\/>/;
 
   var nameline = aText.match(re);
@@ -68,13 +67,7 @@ function addFriend(aFriendId, aName, aPhoto) {
   $('friendList').appendChild(item);
 }
 
-function parseFriends(aText) {
-  var re = /<span>(.+?)<\/span>\s+<div\sid="[0-9]+"\sclass="memo_pop">/g;
-  var re2 = /<a\shref="show_friend.pl\?id=[0-9]+"\sstyle="background:\surl\((.+?)\);/g;
-  var nameRe = /<span>(.+?)<\/span>\s+<div\sid="[0-9]+"\sclass="memo_pop">/;
-  var photoRe = /<a\shref="show_friend.pl\?id=([0-9]+)"\sstyle="background:\surl\((.+?)\);/;
-  names = aText.match(re);
-  photos = aText.match(re2);
+function parseFriends(aJSON) {
   while (names.length > 0) {
     var nameline = names.shift();
     var photoline = photos.shift();
@@ -86,20 +79,47 @@ function parseFriends(aText) {
   }
 }
 
+// http://mixi.jp/ajax_friend_setting.pl?type=thumbnail&mode=get_friends&page=1&sort=lastlogin&_=&post_key=XXX
+function getFriends(aPostKey) {
+  var url = "http://mixi.jp/ajax_friend_setting.pl?type=thumbnail&mode=get_friends&page=1&sort=lastlogin";
+  var body = "&post_key=" + aPostKey + "&_=";
+
+  var xhr = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"].createInstance (Ci.nsIXMLHttpRequest);
+  xhr.open ('POST', url);
+  xhr.setRequestHeader("Content-Type", "text/plain; charset=utf-8");
+  xhr.setRequestHeader("Content-Length", body.length);
+  xhr.setRequestHeader('Referer', 'http://mixi.jp/list_friend.pl');
+  dump("calling: " + url + "\n");
+
+  xhr.onreadystatechange = function (aEvent) {
+    if (xhr.readyState == 4) {
+      if (xhr.status != 200) {
+        dump(xhr.responseText);
+        return;
+      }
+      dump(xhr.responseText + "\n");
+    }
+  }
+  xhr.send (body);
+}
+
 function loadFriends() {
   while($('friendList').childNodes.length > 0)
     $('friendList').removeChild($('friendList').lastChild);
 
   var xhr = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"].createInstance (Ci.nsIXMLHttpRequest);
-  xhr.open ('GET', 'http://mixi.jp/list_friend.pl', true);
+  xhr.open('GET', 'http://mixi.jp/list_friend.pl', true);
 
   xhr.onreadystatechange = function (aEvent) {
     if (xhr.readyState == 4) {
       if (xhr.status != 200) {
-        // dump (xhr.statusText);
+        dump(xhr.responseText);
         return;
       }
-      parseFriends (xhr.responseText);
+      // <input type="hidden" value="23bdc412b30fe13abb9b8a303e61bf3b" name="post_key" />
+      var re = /<input\s+type="hidden"\s+value="(.+?)"\s+name="post_key"/g;
+      result = re.exec(xhr.responseText);
+      getFriends(result[1]);
     }
   }
   xhr.send (null);
